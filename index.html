@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111114" />
+  <meta name="description" content="ClipStudio video editor" />
+  <title>ClipStudio</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn" id="backBtn" aria-label="Back">‹</button>
+      <div class="brand"><span class="brand-mark">▶</span><span>ClipStudio</span></div>
+      <button class="export-btn" id="exportBtn">Export</button>
+    </header>
+
+    <main>
+      <section class="workspace">
+        <div class="preview-wrap">
+          <div class="preview-stage" id="previewStage">
+            <div class="empty-state" id="emptyState">
+              <div class="upload-symbol">＋</div>
+              <h2>Start creating</h2>
+              <p>Import a video to begin editing</p>
+              <button class="primary-btn" id="importBtn">＋ Add video</button>
+            </div>
+            <video id="video" playsinline></video>
+            <div id="textOverlay" class="text-overlay"></div>
+            <div class="preview-controls" id="previewControls">
+              <button class="round-control" id="playBtn">▶</button>
+              <span id="timeLabel">00:00 / 00:00</span>
+              <button class="round-control" id="muteBtn">♫</button>
+            </div>
+          </div>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-action" id="undoBtn"><b>↶</b><span>Undo</span></button>
+          <button class="quick-action" id="redoBtn"><b>↷</b><span>Redo</span></button>
+          <button class="quick-action" id="ratioBtn"><b>▣</b><span>Ratio</span></button>
+          <button class="quick-action" id="fitBtn"><b>⛶</b><span>Fit</span></button>
+        </div>
+      </section>
+
+      <section class="timeline-section">
+        <div class="section-heading"><span>Timeline</span><span class="subtle" id="clipStatus">No clip imported</span></div>
+        <div class="timeline-ruler"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span><span>00:20</span></div>
+        <div class="track-row">
+          <div class="track-label">VIDEO</div>
+          <div class="track-content" id="videoTrack">
+            <div class="track-empty">Your video clip will appear here</div>
+          </div>
+        </div>
+        <div class="track-row audio-row">
+          <div class="track-label">AUDIO</div>
+          <div class="track-content audio-track" id="audioTrack"><span>＋ Add audio</span></div>
+        </div>
+        <div class="trim-panel">
+          <div class="trim-head"><span>Trim clip</span><span class="subtle" id="trimReadout">Start 0.0s · End 0.0s</span></div>
+          <label>Start <input id="trimStart" type="range" min="0" max="100" value="0" step="0.1"></label>
+          <label>End <input id="trimEnd" type="range" min="0" max="100" value="100" step="0.1"></label>
+          <div class="trim-buttons">
+            <button class="tool-btn" id="splitBtn">✂ Split at playhead</button>
+            <button class="tool-btn" id="resetTrimBtn">Reset trim</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="tools-section">
+        <div class="section-heading"><span>Editing tools</span><span class="subtle">Choose a tool</span></div>
+        <div class="tools-grid">
+          <button class="tool-tile" data-tool="text"><span>Ｔ</span><b>Text</b></button>
+          <button class="tool-tile" data-tool="audio"><span>♫</span><b>Audio</b></button>
+          <button class="tool-tile" data-tool="filter"><span>◐</span><b>Filters</b></button>
+          <button class="tool-tile" data-tool="speed"><span>◷</span><b>Speed</b></button>
+          <button class="tool-tile" data-tool="crop"><span>▣</span><b>Crop</b></button>
+          <button class="tool-tile" data-tool="adjust"><span>☼</span><b>Adjust</b></button>
+          <button class="tool-tile" data-tool="sticker"><span>☺</span><b>Stickers</b></button>
+          <button class="tool-tile" data-tool="effects"><span>✧</span><b>Effects</b></button>
+        </div>
+        <div class="tool-panel" id="toolPanel">
+          <div class="panel-title">Text overlay</div>
+          <input id="overlayInput" type="text" placeholder="Type your text…" maxlength="80" />
+          <div class="panel-row">
+            <label>Size <input id="textSize" type="range" min="16" max="56" value="32"></label>
+            <label>Color <input id="textColor" type="color" value="#ffffff"></label>
+          </div>
+          <p class="hint">Text appears over the video preview. More editing tools will be added in later versions.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bottom-nav">
+      <button class="nav-item active"><span>▤</span> Edit</button>
+      <button class="nav-item" id="templatesBtn"><span>▦</span> Templates</button>
+      <button class="nav-item" id="projectsBtn"><span>▣</span> Projects</button>
+    </footer>
+    <input type="file" id="fileInput" accept="video/*" hidden />
+    <input type="file" id="audioInput" accept="audio/*" hidden />
+    <div class="toast" id="toast"></div>
+  </div>
+  <script type="module" src="/src.js"></script>
+</body>
+</html>
